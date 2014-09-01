@@ -46,7 +46,25 @@ Type: `String | Number`
 Default value: `\n`
 
 Write newline at the end of file.
-If is set a Number, replace `footer` X times
+If is set a Number, replace `footer` X times.
+
+#### options.src
+Type: `String | Array`
+
+Source path
+
+#### options.dest
+Type: `String | Array`
+Default value: `false`
+
+Destination path.
+
+#### options.except
+Type: `String | Array`
+Default value: `false`
+
+Except path from parsing.
+Can hide "node_modules" from here.
 
 ### Usage Examples
 

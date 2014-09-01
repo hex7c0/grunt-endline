@@ -4,7 +4,7 @@
  * @module grunt-endline
  * @package grunt-endline
  * @subpackage main
- * @version 0.1.0
+ * @version 0.2.0
  * @author hex7c0 <hex7c0@gmail.com>
  * @copyright hex7c0 2014
  * @license GPLv3
@@ -30,7 +30,8 @@ module.exports = function(grunt) {
 
         var options = this.options({
             footer: '\n',
-            dest: false
+            dest: false,
+            except: false
         });
 
         var ii;
@@ -40,8 +41,31 @@ module.exports = function(grunt) {
                 options.footer += '\n';
             }
         }
+        if (options.except) {
+            var exc;
+            if (Array.isArray(options.except)) {
+                exc = function(path) {
+
+                    for (var i = 0, ii = path.length; i < ii; i++) {
+                        if (path[i].indexOf(options.except) >= 0) {
+                            return true;
+                        }
+                    }
+                    return false;
+                };
+            } else {
+                exc = function(path) {
+
+                    if (path.indexOf(options.except) >= 0) {
+                        return true;
+                    }
+                    return false;
+                };
+            }
+        }
 
         var footer = grunt.template.process(options.footer);
+        var except = options.except;
         var counter = 0;
         var dest = '';
 
@@ -58,6 +82,12 @@ module.exports = function(grunt) {
 
                 if (grunt.file.isDir(filepath)) {
                     return;
+                }
+                if (except) {
+                    if (exc(filepath)) {
+                        grunt.log.debug(filepath);
+                        return;
+                    }
                 }
 
                 var file = filepath;

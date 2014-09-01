@@ -43,6 +43,15 @@ module.exports = function(grunt) {
                 } ]
             },
 
+            object_wit_exception: {
+                options: {
+                    except: 'node_modules'
+                },
+                files: [ {
+                    src: './**/*.json'
+                } ]
+            },
+
             array_with_dest: {
                 files: {
                     'tmp/array': [ 'test/target/*' ]
