@@ -4,7 +4,7 @@
  * @module grunt-endline
  * @package grunt-endline
  * @subpackage main
- * @version 0.2.0
+ * @version 0.2.1
  * @author hex7c0 <hex7c0@gmail.com>
  * @copyright hex7c0 2014
  * @license GPLv3
@@ -46,8 +46,8 @@ module.exports = function(grunt) {
             if (Array.isArray(options.except)) {
                 exc = function(path) {
 
-                    for (var i = 0, ii = path.length; i < ii; i++) {
-                        if (path[i].indexOf(options.except) >= 0) {
+                    for (var i = 0, ii = options.except; i < ii; i++) {
+                        if (path.indexOf(options.except[i]) >= 0) {
                             return true;
                         }
                     }
