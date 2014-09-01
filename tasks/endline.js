@@ -4,7 +4,7 @@
  * @module grunt-endline
  * @package grunt-endline
  * @subpackage main
- * @version 0.0.1
+ * @version 0.1.0
  * @author hex7c0 <hex7c0@gmail.com>
  * @copyright hex7c0 2014
  * @license GPLv3
@@ -43,7 +43,7 @@ module.exports = function(grunt) {
 
         var footer = grunt.template.process(options.footer);
         var counter = 0;
-        var dest = '.';
+        var dest = '';
 
         this.files.forEach(function(f) {
 
@@ -65,9 +65,20 @@ module.exports = function(grunt) {
                 if (readed[readed.length - 1] !== footer) {
                     counter++;
                     if (f.dest) {
-                        dest = ' in ' + f.dest + '.';
-                        file = path.join(f.dest, filepath);
+                        if (dest === '') {
+                            dest = ' in ' + f.dest;
+                        } else {
+                            dest += ', ' + f.dest;
+                        }
+                        if (f.dest === file) {
+                            // pass
+                        } else if (grunt.file.isFile(f.dest)) {
+                            file = f.dest;
+                        } else {
+                            file = path.join(f.dest, filepath);
+                        }
                     } else {
+                        counter--;
                         grunt.log.writeln('replace ' + filepath);
                     }
                     if (readed[readed.length - 1] === '\n') { // skip one
@@ -78,11 +89,15 @@ module.exports = function(grunt) {
                     grunt.file.write(file, readed);
                 } else if (f.dest) { // already n
                     counter++;
-                    dest = ' in ' + f.dest + '.';
-                    if (grunt.file.isFile(f.dest)) {
+                    if (dest === '') {
+                        dest = ' in ' + f.dest;
+                    } else {
+                        dest += ', ' + f.dest;
+                    }
+                    if (f.dest === filepath) {
+                        grunt.file.write(filepath, readed);
+                    } else if (grunt.file.isFile(f.dest)) {
                         grunt.file.write(f.dest, readed);
-                    } else if (grunt.file.isFile(f.dest, filepath)) {
-                        grunt.file.write(path.join(f.dest, filepath), readed);
                     } else {
                         grunt.file.write(path.join(f.dest, filepath), readed);
                     }
@@ -92,8 +107,9 @@ module.exports = function(grunt) {
             return;
         });
 
+        counter = counter < 0 ? 0 : counter;
         var plu = counter == 1 || 0 ? 'file' : 'files';
-        grunt.log.ok(counter + ' ' + plu + ' edited' + dest);
+        grunt.log.ok(counter + ' ' + plu + ' edited' + dest + '.');
         return;
     });
 
