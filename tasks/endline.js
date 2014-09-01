@@ -81,6 +81,8 @@ module.exports = function(grunt) {
                     dest = ' in ' + f.dest + '.';
                     if (grunt.file.isFile(f.dest)) {
                         grunt.file.write(f.dest, readed);
+                    } else if (grunt.file.isFile(f.dest, filepath)) {
+                        grunt.file.write(path.join(f.dest, filepath), readed);
                     } else {
                         grunt.file.write(path.join(f.dest, filepath), readed);
                     }
