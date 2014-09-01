@@ -1,0 +1,48 @@
+{
+  "version": "0.0.1",
+  "name": "grunt-endline",
+  "description": "newline at end of file",
+  "keywords": [
+    "gruntplugin",
+    "endline",
+    "newline"
+  ],
+  "preferGlobal": false,
+  "homepage": "http://supergiovane.tk/#/grunt-endline",
+  "author": {
+    "name": "hex7c0",
+    "email": "hex7c0@gmail.com",
+    "url": "http://hex7c0.tk/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hex7c0/grunt-endline.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hex7c0/grunt-endline/issues",
+    "email": "hex7c0@gmail.com"
+  },
+  "directories":{
+    "doc":"./doc"
+  },
+  "main": "./tasks/endline.min.js",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "grunt-contrib-jshint": "~0.10.0",
+    "grunt-contrib-clean": "~0.6.0",
+    "grunt-contrib-nodeunit": "~0.4.1",
+    "grunt": "~0.4.5"
+  },
+  "peerDependencies": {
+    "grunt": "~0.4.5"
+  },
+  "engines": {
+    "node": ">=0.10"
+  },
+  "scripts": {
+    "prepublish": "npm prune",
+    "test": "grunt test"
+  },
+  "license": "GPLv3"
+}
