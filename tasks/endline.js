@@ -79,7 +79,11 @@ module.exports = function(grunt) {
                 } else if (f.dest) { // already n
                     counter++;
                     dest = ' in ' + f.dest + '.';
-                    grunt.file.write(path.join(f.dest, filepath), readed);
+                    if (grunt.file.isFile(f.dest)) {
+                        grunt.file.write(f.dest, readed);
+                    } else {
+                        grunt.file.write(path.join(f.dest, filepath), readed);
+                    }
                 }
                 return readed;
             });

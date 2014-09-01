@@ -1,4 +1,8 @@
-# [REPLACE](http://supergiovane.tk/#/grunt-endline)
+# [grunt-endline](http://supergiovane.tk/#/grunt-endline)
+
+[![NPM version](https://badge.fury.io/js/grunt-endline.svg)](http://badge.fury.io/js/grunt-endline)
+[![Build Status](https://travis-ci.org/hex7c0/grunt-endline.svg)](https://travis-ci.org/hex7c0/grunt-endline)
+[![Dependency Status](https://david-dm.org/hex7c0/grunt-endline/status.svg)](https://david-dm.org/hex7c0/grunt-endline)
 
 > Newline at end of file
 
