@@ -4,7 +4,7 @@
  * @module grunt-endline
  * @package grunt-endline
  * @subpackage main
- * @version 0.2.1
+ * @version 0.2.2
  * @author hex7c0 <hex7c0@gmail.com>
  * @copyright hex7c0 2014
  * @license GPLv3
@@ -46,7 +46,7 @@ module.exports = function(grunt) {
             if (Array.isArray(options.except)) {
                 exc = function(path) {
 
-                    for (var i = 0, ii = options.except; i < ii; i++) {
+                    for (var i = 0, ii = options.except.length; i < ii; i++) {
                         if (path.indexOf(options.except[i]) >= 0) {
                             return true;
                         }
@@ -83,11 +83,9 @@ module.exports = function(grunt) {
                 if (grunt.file.isDir(filepath)) {
                     return;
                 }
-                if (except) {
-                    if (exc(filepath)) {
-                        grunt.log.debug(filepath);
-                        return;
-                    }
+                if (except && exc(filepath)) {
+                    grunt.log.debug(filepath);
+                    return;
                 }
 
                 var file = filepath;
