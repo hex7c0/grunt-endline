@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 /**
  * @file grunt-endline main
  * @module grunt-endline
