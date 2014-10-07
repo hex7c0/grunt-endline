@@ -66,6 +66,12 @@ Default value: `false`
 Except path from parsing.
 Can hide "node_modules" from here.
 
+#### options.replaced
+Type: `Boolean`
+Default value: `false`
+
+Show file replaced.
+
 ### Usage Examples
 
 #### Default Options

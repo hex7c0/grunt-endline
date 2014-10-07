@@ -4,7 +4,7 @@
  * @module grunt-endline
  * @package grunt-endline
  * @subpackage main
- * @version 0.2.2
+ * @version 0.2.4
  * @author hex7c0 <hex7c0@gmail.com>
  * @copyright hex7c0 2014
  * @license GPLv3
@@ -15,7 +15,7 @@
  */
 // import
 try {
-    var path = require('path');
+    var join = require('path').join;
 } catch (MODULE_NOT_FOUND) {
     console.error(MODULE_NOT_FOUND);
     process.exit(1);
@@ -31,7 +31,8 @@ module.exports = function(grunt) {
         var options = this.options({
             footer: '\n',
             dest: false,
-            except: false
+            except: false,
+            replaced: false
         });
 
         var ii;
@@ -71,67 +72,73 @@ module.exports = function(grunt) {
 
         this.files.forEach(function(f) {
 
-            f.src.filter(function(filepath) {
+            f.src
+                    .filter(function(filepath) {
 
-                if (!grunt.file.exists(filepath)) {
-                    grunt.log.warn('Source file "' + filepath + '" not found.');
-                    return false;
-                }
-                return true;
-            }).map(function(filepath) {
-
-                if (grunt.file.isDir(filepath)) {
-                    return;
-                }
-                if (except && exc(filepath)) {
-                    grunt.log.debug(filepath);
-                    return;
-                }
-
-                var file = filepath;
-                var readed = grunt.file.read(filepath);
-                if (readed[readed.length - 1] !== footer) {
-                    counter++;
-                    if (f.dest) {
-                        if (dest === '') {
-                            dest = ' in ' + f.dest;
-                        } else {
-                            dest += ', ' + f.dest;
+                        if (!grunt.file.exists(filepath)) {
+                            grunt.log.warn('Source file "' + filepath
+                                    + '" not found.');
+                            return false;
                         }
-                        if (f.dest === file) {
-                            // pass
-                        } else if (grunt.file.isFile(f.dest)) {
-                            file = f.dest;
-                        } else {
-                            file = path.join(f.dest, filepath);
+                        return true;
+                    }).map(function(filepath) {
+
+                        if (grunt.file.isDir(filepath)) {
+                            return;
                         }
-                    } else {
-                        counter--;
-                        grunt.log.writeln('replace ' + filepath);
-                    }
-                    if (readed[readed.length - 1] === '\n') { // skip one
-                        readed += footer.substr(1);
-                    } else {
-                        readed += footer;
-                    }
-                    grunt.file.write(file, readed);
-                } else if (f.dest) { // already n
-                    counter++;
-                    if (dest === '') {
-                        dest = ' in ' + f.dest;
-                    } else {
-                        dest += ', ' + f.dest;
-                    }
-                    if (f.dest === filepath) {
-                        grunt.file.write(filepath, readed);
-                    } else if (grunt.file.isFile(f.dest)) {
-                        grunt.file.write(f.dest, readed);
-                    } else {
-                        grunt.file.write(path.join(f.dest, filepath), readed);
-                    }
-                }
-                return readed;
-            });
+                        if (except && exc(filepath)) {
+                            grunt.log.debug(filepath);
+                            return;
+                        }
+
+                        var file = filepath;
+                        var readed = grunt.file.read(filepath);
+                        if (readed[readed.length - 1] !== footer) {
+                            counter++;
+                            if (f.dest) {
+                                if (dest === '') {
+                                    dest = ' in ' + f.dest;
+                                } else {
+                                    dest += ', ' + f.dest;
+                                }
+                                if (f.dest === file) {
+                                    // pass
+                                } else if (grunt.file.isFile(f.dest)) {
+                                    file = f.dest;
+                                } else {
+                                    file = join(f.dest, filepath);
+                                }
+                            } else {
+                                counter--;
+                                if (options.replaced) {
+                                    grunt.log.writeln('replace ' + filepath);
+                                }
+                            }
+                            // skip one
+                            if (readed[readed.length - 1] === '\n') {
+                                readed += footer.substr(1);
+                            } else {
+                                readed += footer;
+                            }
+                            grunt.file.write(file, readed);
+                        } else if (f.dest) { // already n
+                            counter++;
+                            if (dest === '') {
+                                dest = ' in ' + f.dest;
+                            } else {
+                                dest += ', ' + f.dest;
+                            }
+                            if (f.dest === filepath) {
+                                grunt.file.write(filepath, readed);
+                            } else if (grunt.file.isFile(f.dest)) {
+                                grunt.file.write(f.dest, readed);
+                            } else {
+                                grunt.file
+                                        .write(join(f.dest, filepath), readed);
+                            }
+                        }
+                        return readed;
+                    });
             return;
         });
 
