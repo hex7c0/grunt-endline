@@ -1,5 +1,5 @@
 {
-  "version": "0.2.3",
+  "version": "0.2.4",
   "name": "grunt-endline",
   "description": "newline at end of file",
   "keywords": [
@@ -22,7 +22,7 @@
     "url": "https://github.com/hex7c0/grunt-endline/issues",
     "email": "hex7c0@gmail.com"
   },
-  "main": "./tasks/endline.min.js",
+  "main": "./tasks/endline.js",
   "dependencies": {
   },
   "devDependencies": {
