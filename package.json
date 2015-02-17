@@ -36,7 +36,7 @@
     "grunt": "~0.4.5"
   },
   "engines": {
-    "node": "^0.10"
+    "node": ">=0.10"
   },
   "scripts": {
     "prepublish": "npm prune",
