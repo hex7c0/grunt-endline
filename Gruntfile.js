@@ -10,78 +10,88 @@
 
 module.exports = function(grunt) {
 
-    grunt.initConfig({
+  grunt.initConfig({
 
-        clean: {
-            tests: [ 'tmp' ]
+    clean: {
+      tests: [ 'tmp' ]
+    },
+
+    jshint: {
+      all: [ 'Gruntfile.js', 'tasks/*.js', '<%= nodeunit.tests %>' ],
+      options: {
+        curly: true,
+        indent: 2,
+        quotmark: 'single',
+        undef: true,
+        unused: true,
+        strict: true,
+        node: true,
+        // relax
+        laxbreak: true,
+        loopfunc: true,
+        shadow: true
+      }
+    },
+
+    endline: {
+
+      object_with_dest: {
+        files: [ {
+          src: 'test/target/with',
+          dest: 'tmp/object'
+        }, {
+          src: 'test/target/without',
+          dest: 'tmp/object'
+        } ]
+      },
+
+      object_without_dest: {
+        files: [ {
+          src: 'tmp/with',
+        }, {
+          src: 'tmp/without',
+        } ]
+      },
+
+      object_wit_exception: {
+        options: {
+          except: 'node_modules'
         },
+        files: [ {
+          src: './**/*.json'
+        } ]
+      },
 
-        jshint: {
-            all: [ 'Gruntfile.js', 'tasks/*.js', '<%= nodeunit.tests %>' ],
-            options: {
-                jshintrc: '.jshintrc'
-            }
-        },
-
-        endline: {
-
-            object_with_dest: {
-                files: [ {
-                    src: 'test/target/with',
-                    dest: 'tmp/object'
-                }, {
-                    src: 'test/target/without',
-                    dest: 'tmp/object'
-                } ]
-            },
-
-            object_without_dest: {
-                files: [ {
-                    src: 'tmp/with',
-                }, {
-                    src: 'tmp/without',
-                } ]
-            },
-
-            object_wit_exception: {
-                options: {
-                    except: 'node_modules'
-                },
-                files: [ {
-                    src: './**/*.json'
-                } ]
-            },
-
-            array_with_dest: {
-                files: {
-                    'tmp/array': [ 'test/target/*' ]
-                }
-            },
-
-            array_with_multiple: {
-                options: {
-                    footer: 5
-                },
-                files: {
-                    'tmp/multiple': [ 'test/target/*' ]
-                }
-            }
-
-        },
-
-        nodeunit: {
-            tests: [ 'test/*_test.js' ]
+      array_with_dest: {
+        files: {
+          'tmp/array': [ 'test/target/*' ]
         }
-    });
+      },
 
-    // Actually load this plugin's task(s).
-    grunt.loadTasks('tasks');
+      array_with_multiple: {
+        options: {
+          footer: 5
+        },
+        files: {
+          'tmp/multiple': [ 'test/target/*' ]
+        }
+      }
 
-    grunt.loadNpmTasks('grunt-contrib-clean');
-    grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-contrib-nodeunit');
+    },
 
-    grunt.registerTask('test', [ 'clean', 'endline', 'nodeunit' ]);
-    grunt.registerTask('default', [ 'endline' ]);
+    nodeunit: {
+      tests: [ 'test/*_test.js' ]
+    }
+  });
+
+  // Actually load this plugin's task(s).
+  grunt.loadTasks('tasks');
+
+  grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-nodeunit');
+
+  grunt.registerTask('test', [ 'clean', 'endline', 'nodeunit' ]);
+  grunt.registerTask('default', [ 'endline' ]);
 
 };
