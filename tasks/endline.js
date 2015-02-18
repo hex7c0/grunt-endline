@@ -2,29 +2,19 @@
 /**
  * @file grunt-endline main
  * @module grunt-endline
- * @package grunt-endline
  * @subpackage main
- * @version 0.2.4
+ * @version 0.2.0
  * @author hex7c0 <hex7c0@gmail.com>
  * @copyright hex7c0 2014
  * @license GPLv3
  */
 
 /*
- * initialize module
- */
-// import
-try {
-  var join = require('path').join;
-} catch(MODULE_NOT_FOUND) {
-  console.error(MODULE_NOT_FOUND);
-  process.exit(1);
-}
-
-/*
  * functions
  */
-module.exports = function(grunt) {
+function endline(grunt) {
+
+  var join = require('path').join;
 
   grunt.registerMultiTask('endline', 'Newline at end of file', function() {
 
@@ -38,7 +28,7 @@ module.exports = function(grunt) {
     var ii;
     if (ii = Number(options.footer)) {
       options.footer = '';
-      for(var i = 0; i < ii; i++) {
+      for (var i = 0; i < ii; i++) {
         options.footer += '\n';
       }
     }
@@ -47,7 +37,7 @@ module.exports = function(grunt) {
       if (Array.isArray(options.except)) {
         exc = function(path) {
 
-          for(var i = 0, ii = options.except.length; i < ii; i++) {
+          for (var i = 0, ii = options.except.length; i < ii; i++) {
             if (path.indexOf(options.except[i]) >= 0) {
               return true;
             }
@@ -146,4 +136,5 @@ module.exports = function(grunt) {
   });
 
   return;
-};
+}
+module.exports = endline;
