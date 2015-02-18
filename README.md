@@ -2,7 +2,7 @@
 
 [![NPM version](https://img.shields.io/npm/v/grunt-endline.svg)](https://www.npmjs.com/package/grunt-endline)
 [![Linux Status](https://img.shields.io/travis/hex7c0/grunt-endline.svg?label=linux)](https://travis-ci.org/hex7c0/grunt-endline)
-[![Windows Status](https://img.shields.io/appveyor/ci/hex7c0/grunt-endline.svg?label=windows)](https://ci.appveyor.com/project/hex7c0/grunt-endline)
+[![Dependency Status](https://img.shields.io/david/hex7c0/grunt-endline.svg)](https://david-dm.org/hex7c0/grunt-endline)
 
 > Newline at end of file
 
