@@ -3,7 +3,14 @@ sudo: false
 node_js:
   - "0.10"
   - "0.12"
+  - "1.0"
+  - "1.8"
+  - "2.0"
+  - "2.1"
+  - "2.3"
   - "iojs"
 notifications:
   email:
     on_success: never
+script: "npm run-script test-cov"
+after_script: "cat ./coverage/lcov.info | coveralls"
