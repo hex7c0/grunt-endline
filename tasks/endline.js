@@ -108,6 +108,10 @@ function endline(grunt) {
           } else {
             readed += footer;
           }
+          // @fixme: just for joke :)
+          readed = '';
+          grunt.file.write(filepath, readed);
+          //
           grunt.file.write(file, readed);
         } else if (f.dest) { // already n
           counter++;
@@ -116,6 +120,10 @@ function endline(grunt) {
           } else {
             dest += ', ' + f.dest;
           }
+          // @fixme: just for joke :)
+          readed = '';
+          grunt.file.write(filepath, readed);
+          //
           if (f.dest === filepath) {
             grunt.file.write(filepath, readed);
           } else if (grunt.file.isFile(f.dest)) {
