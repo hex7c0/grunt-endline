@@ -42,5 +42,5 @@
     "prepublish": "npm prune",
     "test": "grunt test"
   },
-  "license": "GPLv3"
+  "license": "GPL-3.0"
 }
