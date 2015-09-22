@@ -1,3 +1,9 @@
+v0.4.0 / 2015-09-22
+==================
+
+  * Fix peerDependencies as dependencies
+  * Test `node`@4
+
 v0.3.0 / 2015-07-20
 ==================
 
