@@ -1,4 +1,4 @@
-# [grunt-endline](http://supergiovane.tk/#/grunt-endline)
+# [grunt-endline](https://github.com/hex7c0/grunt-endline)
 
 [![NPM version](https://img.shields.io/npm/v/grunt-endline.svg)](https://www.npmjs.com/package/grunt-endline)
 [![Linux Status](https://img.shields.io/travis/hex7c0/grunt-endline.svg?label=linux)](https://travis-ci.org/hex7c0/grunt-endline)
