@@ -1,13 +1,19 @@
+v0.5.0 / 2016-04-10
+==================
+
+  * Update `grunt`@^1.0.0
+  * Tested against `node`@5.7
+
 v0.4.1 / 2015-11-20
 ==================
 
-  * Test `node`@5
+  * Tested against `node`@5
 
 v0.4.0 / 2015-09-22
 ==================
 
   * Fix peerDependencies as dependencies
-  * Test `node`@4
+  * Tested against `node`@4
 
 v0.3.0 / 2015-07-20
 ==================
