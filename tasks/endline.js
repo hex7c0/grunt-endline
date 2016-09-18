@@ -16,7 +16,7 @@ function endline(grunt) {
 
   var join = require('path').join;
 
-  grunt.registerMultiTask('endline', 'Newline at end of file', function() {
+  grunt.registerMultiTask('endline', 'Newline at end of _file', function() {
 
     var done = this.async();
 
@@ -34,13 +34,15 @@ function endline(grunt) {
         options.footer += '\n';
       }
     }
+
+    var exc, jj;
     if (options.except) {
-      var exc;
       if (Array.isArray(options.except)) {
+        jj = options.except.length;
         exc = function(path) {
 
-          for (var i = 0, ii = options.except.length; i < ii; ++i) {
-            if (path.indexOf(options.except[i]) >= 0) {
+          for (var j = 0; j < jj; ++j) {
+            if (path.indexOf(options.except[j]) >= 0) {
               return true;
             }
           }
@@ -62,9 +64,9 @@ function endline(grunt) {
     var counter = 0;
     var dest = '';
 
-    this.files.forEach(function(f) {
+    this.files.forEach(function(file) {
 
-      f.src.filter(function(filepath) {
+      file.src.filter(function(filepath) {
 
         if (!grunt.file.exists(filepath)) {
           grunt.log.warn('Source file "' + filepath + '" not found.');
@@ -73,67 +75,70 @@ function endline(grunt) {
         return true;
       }).map(function(filepath) {
 
-        if (grunt.file.isDir(filepath)) {
-          return;
-        }
         if (except && exc(filepath)) {
-          grunt.log.debug(filepath);
+          grunt.log.debug('skipped', filepath);
           return;
         }
 
-        var file = filepath;
+        var _file = filepath;
         var readed = grunt.file.read(filepath);
-        if (readed[readed.length - 1] !== footer) {
-          counter++;
-          if (f.dest) {
-            if (dest === '') {
-              dest = ' in ' + f.dest;
+        var lastChar = readed[readed.length - 1];
+
+        if (lastChar !== footer) { // no footer
+
+          if (file.dest) {
+            ++counter;
+            if (dest !== '') {
+              dest += ', ' + file.dest;
             } else {
-              dest += ', ' + f.dest;
+              dest = ' in ' + file.dest;
             }
-            if (f.dest === file) {
+
+            if (file.dest === _file) { // destination
               // pass
-            } else if (grunt.file.isFile(f.dest)) {
-              file = f.dest;
+            } else if (grunt.file.isFile(file.dest)) {
+              _file = file.dest;
             } else {
-              file = join(f.dest, filepath);
+              _file = join(file.dest, filepath);
             }
-          } else {
-            counter--;
-            if (options.replaced) {
-              grunt.log.writeln('replace ' + filepath);
-            }
+
+          } else if (options.replaced) {
+            grunt.log.writeln('replace', filepath);
           }
-          // skip one
-          if (readed[readed.length - 1] === '\n') {
+
+          if (lastChar === '\n') { // skip one
             readed += footer.substr(1);
           } else {
             readed += footer;
           }
-          grunt.file.write(file, readed);
+          grunt.file.write(_file, readed);
+          grunt.log.debug('replaced', filepath);
 
-        } else if (f.dest) { // already n
-          counter++;
-          if (dest === '') {
-            dest = ' in ' + f.dest;
+        } else if (file.dest) { // already has footer
+          ++counter;
+
+          if (dest !== '') {
+            dest += ', ' + file.dest;
           } else {
-            dest += ', ' + f.dest;
+            dest = ' in ' + file.dest;
           }
-          if (f.dest === filepath) {
+
+          if (file.dest === filepath) {
             grunt.file.write(filepath, readed);
-          } else if (grunt.file.isFile(f.dest)) {
-            grunt.file.write(f.dest, readed);
+          } else if (grunt.file.isFile(file.dest)) {
+            grunt.file.write(file.dest, readed);
           } else {
-            grunt.file.write(join(f.dest, filepath), readed);
+            grunt.file.write(join(file.dest, filepath), readed);
           }
         }
+
         return readed;
       });
     });
 
-    counter = counter < 0 ? 0 : counter;
-    var plu = counter == 1 || 0 ? 'file' : 'files';
-    grunt.log.ok(counter + ' ' + plu + ' edited' + dest + '.');
+    counter = counter <= 0 ? 0 : counter;
+    var plu = counter === 1 ? 'file' : 'files';
+    grunt.log.ok(counter, plu, 'edited' + dest + '.');
     done(counter);
   });
 }
