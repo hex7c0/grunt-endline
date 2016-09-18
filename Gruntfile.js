@@ -53,7 +53,7 @@ module.exports = function(grunt) {
         } ]
       },
 
-      object_wit_exception: {
+      object_with_exception: {
         options: {
           except: 'node_modules'
         },
@@ -91,7 +91,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-nodeunit');
 
-  grunt.registerTask('test', [ 'clean', 'endline', 'nodeunit' ]);
+  grunt.registerTask('test', [ 'clean', 'lint', 'endline', 'nodeunit' ]);
+  grunt.registerTask('lint', [ 'jshint' ]);
   grunt.registerTask('default', [ 'endline' ]);
 
 };
