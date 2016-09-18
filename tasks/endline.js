@@ -85,9 +85,10 @@ function endline(grunt) {
         var lastChar = readed[readed.length - 1];
 
         if (lastChar !== footer) { // no footer
+          ++counter;
+          grunt.log.debug('without footer', filepath);
 
           if (file.dest) {
-            ++counter;
             if (dest !== '') {
               dest += ', ' + file.dest;
             } else {
@@ -103,7 +104,7 @@ function endline(grunt) {
             }
 
           } else if (options.replaced) {
-            grunt.log.writeln('replace', filepath);
+            grunt.log.writeln('replaced', filepath);
           }
 
           if (lastChar === '\n') { // skip one
@@ -112,10 +113,10 @@ function endline(grunt) {
             readed += footer;
           }
           grunt.file.write(_file, readed);
-          grunt.log.debug('replaced', filepath);
 
         } else if (file.dest) { // already has footer
           ++counter;
+          grunt.log.debug('with footer', filepath);
 
           if (dest !== '') {
             dest += ', ' + file.dest;
@@ -131,8 +132,6 @@ function endline(grunt) {
             grunt.file.write(join(file.dest, filepath), readed);
           }
         }
-
-        return readed;
       });
     });
 
