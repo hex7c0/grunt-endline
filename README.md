@@ -4,10 +4,10 @@
 [![Linux Status](https://img.shields.io/travis/hex7c0/grunt-endline.svg?label=linux)](https://travis-ci.org/hex7c0/grunt-endline)
 [![Dependency Status](https://img.shields.io/david/hex7c0/grunt-endline.svg)](https://david-dm.org/hex7c0/grunt-endline)
 
-> Newline at end of file
+> Add newline at end of file if missing
 
 ## Getting Started
-This plugin requires Grunt `~0.4.5`
+This plugin requires Grunt `^1.0.0`
 
 If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
 
@@ -34,8 +34,8 @@ grunt.initConfig({
     },
     your_target: {
       // Target-specific file lists and/or options go here.
-    },
-  },
+    }
+  }
 });
 ```
 
