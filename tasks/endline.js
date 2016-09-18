@@ -18,6 +18,8 @@ function endline(grunt) {
 
   grunt.registerMultiTask('endline', 'Newline at end of file', function() {
 
+    var done = this.async();
+
     var options = this.options({
       footer: '\n',
       dest: false,
@@ -25,8 +27,8 @@ function endline(grunt) {
       replaced: false
     });
 
-    var ii;
-    if (ii = Number(options.footer)) {
+    var ii = Number(options.footer);
+    if (ii) {
       options.footer = '';
       for (var i = 0; i < ii; i++) {
         options.footer += '\n';
@@ -37,7 +39,7 @@ function endline(grunt) {
       if (Array.isArray(options.except)) {
         exc = function(path) {
 
-          for (var i = 0, ii = options.except.length; i < ii; i++) {
+          for (var i = 0, ii = options.except.length; i < ii; ++i) {
             if (path.indexOf(options.except[i]) >= 0) {
               return true;
             }
@@ -109,6 +111,7 @@ function endline(grunt) {
             readed += footer;
           }
           grunt.file.write(file, readed);
+
         } else if (f.dest) { // already n
           counter++;
           if (dest === '') {
@@ -126,15 +129,12 @@ function endline(grunt) {
         }
         return readed;
       });
-      return;
     });
 
     counter = counter < 0 ? 0 : counter;
     var plu = counter == 1 || 0 ? 'file' : 'files';
     grunt.log.ok(counter + ' ' + plu + ' edited' + dest + '.');
-    return;
+    done(counter);
   });
-
-  return;
 }
 module.exports = endline;
