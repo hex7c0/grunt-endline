@@ -1,5 +1,5 @@
 {
-  "version": "0.6.2",
+  "version": "0.7.0",
   "name": "grunt-endline",
   "description": "add newline at end of file",
   "keywords": [
@@ -36,6 +36,7 @@
   },
   "scripts": {
     "prepare": "npm prune",
+    "prepublishOnly": "grunt",
     "test": "grunt test"
   },
   "license": "GPL-3.0"
