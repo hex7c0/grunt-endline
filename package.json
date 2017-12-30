@@ -24,19 +24,18 @@
     "email": "hex7c0@gmail.com"
   },
   "main": "./tasks/endline.js",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "grunt": "^1.0.0",
     "grunt-contrib-jshint": "~1.1",
-    "grunt-contrib-clean": "~1.0",
+    "grunt-contrib-uglify": "~1.1",
     "grunt-contrib-nodeunit": "~1.0"
   },
   "engines": {
-    "node": ">=4.0"
+    "node": ">=4"
   },
   "scripts": {
-    "prepublish": "npm prune",
+    "prepare": "npm prune",
     "test": "grunt test"
   },
   "license": "GPL-3.0"
