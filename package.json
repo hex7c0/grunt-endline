@@ -28,7 +28,7 @@
   "devDependencies": {
     "grunt": "^1.0.0",
     "grunt-contrib-jshint": "~1.1",
-    "grunt-contrib-uglify": "~1.1",
+    "grunt-contrib-uglify": "~3.3",
     "grunt-contrib-nodeunit": "~1.0"
   },
   "engines": {
